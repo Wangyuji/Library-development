@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CategoryManage</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    form {
+      padding-top: 10px;
+      padding-bottom: 20px;
+    }
+
+    th {
+      color: white;
+    }
+
+    td {
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div th:replace="head.html"></div>
+</nav>
+
+<!-- Filter Section -->
+<section class="container mt-5">
+  <h1>Add Category</h1>
+  <form action="/category/add" method="post">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+
+  <h1>Category Manage</h1>
+
+  <input id="error" type="hidden" th:if="${error}" th:value="${error}"/>
+
+  <!-- Article List Table -->
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Category</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Use Thymeleaf to iterate over the adviceList and populate the table rows -->
+      <tr th:each="category : ${categoryList}">
+        <td th:text="${category.id}"></td>
+        <td th:text="${category.name}"></td>
+        <td>
+          <a th:href="'/category/edit?id=' + ${category.getId()}">
+            <button class="btn btn-primary ml-auto">Edit</button>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+</div>
+
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function(){
+    const error = $("#error").val()
+    if (error != undefined && error.length > 0) {
+      alert(error)
+    }
+  })
+</script>
+</body>
+</html>
