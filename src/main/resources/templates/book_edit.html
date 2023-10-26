@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Book</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div th:replace="head.html"></div>
+</nav>
+
+<section class="container mt-5">
+  <h1>Edit book</h1>
+  <form action="/book/edit" method="post">
+    <div class="form-group">
+      <label>ID</label>
+      <input readonly th:value="${book.id}" type="text" class="form-control" name="id" required>
+    </div>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input th:value="${book.title}" type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="form-group">
+      <label for="author">Author</label>
+      <input th:value="${book.author}" type="text" class="form-control" id="author" name="author" required>
+    </div>
+    <div class="form-group">
+      <label for="publish">Publish</label>
+      <input th:value="${book.publisherYear}" type="number" class="form-control" id="publish" name="publish" required>
+    </div>
+    <div class="form-group">
+      <label for="author">Description</label>
+      <input th:value="${book.description}" type="text" class="form-control" id="description" name="description" required>
+    </div>
+    <div class="form-group">
+      <label for="language">Language</label>
+      <input th:value="${book.language}" type="text" class="form-control" id="language" name="language" required>
+    </div>
+    <div class="form-group">
+      <label for="remain">Remain</label>
+      <input th:value="${book.remain}" type="number" class="form-control" id="remain" name="remain" required>
+    </div>
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <select class="form-control" id="category" name="category">
+        <option th:each="category: ${categoryList}" th:value="${category.id}" th:text="${category.name}"></option>
+      </select>
+    </div>
+
+    <input id="error" type="hidden" th:if="${error}" th:value="${error}"/>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+  </form>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function(){
+    const error = $("#error").val()
+    if (error != undefined && error.length > 0) {
+      alert(error)
+    }
+  })
+</script>
+</body>
+</html>
